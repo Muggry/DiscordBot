@@ -2,7 +2,7 @@
   "name": "bot",
   "version": "1.0.0",
   "description": "initial bot package",
-  "main": "src/main.js",
+  "main": "src/bot.js",
   "scripts": {
     "test": "node ."
   },
