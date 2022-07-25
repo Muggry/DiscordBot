@@ -1,28 +1,21 @@
-var print = function(s) {
-    console.log(s)
-}
-
-var warn = function(s) {
-    console.warn(s)
-}
-
-var error = function(s) {
-    console.error(s)
-}
-
 require('dotenv').config()
 const fs = require('fs')
 
-const { Client, GatewayIntentBits } = require('discord.js');
+const { Client, Collection, GatewayIntentBits } = require('discord.js');
 const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+client.commands = new Collection();
+client.cmdArray = [];
 
+const funcFolder = fs.readdirSync('./src/functions');
+for (const folder of funcFolder)  {
+    const funcFiles = fs.readdirSync('./src/function/${folder}').filter(file => file.endsWith('.js'));
 
+    for (const files of funcFiles) 
+        require('./functions/${folder}/${file}')(client);
+}
 
-
-
-client.once('ready', () => {
-    print("Bot is ready")
-});
+client.cmdHandler();
+client.eventHandler();
 
 
 const token = process.env.BOT_TOKEN;
