@@ -12,7 +12,7 @@ module.exports = {
             try {
                 await command.execute(interaction, client);
             } catch (error) {
-                console.error('error')
+                console.error(error)
                 await interaction.reply({
                     content: 'Elf bot had some problems executing this command, please try again.',
                     ephemeral: true
