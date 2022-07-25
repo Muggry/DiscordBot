@@ -1,9 +1,10 @@
 const { SlashCommandBuilder } = require('discord.js')
 
 module.exports = {
+    
     data: new SlashCommandBuilder()
        .setName('ping')
-       .setDescription('returns ping when activated'),
+       .setDescription('Returns ping when activated.'),
     async execute(interaction, client) {
         const message = await interaction.deferReply({
             fetchReply: true
