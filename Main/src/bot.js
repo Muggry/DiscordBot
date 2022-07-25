@@ -7,7 +7,9 @@ const GatewayIntentBits = Discord.GatewayIntentBits;
 const Collection = Discord.Collection;
 
 //client stuff
-const client = new Discord.Client({ intents: GatewayIntentBits.Guilds });
+const client = new Discord.Client({ 
+    intents: GatewayIntentBits.Guilds
+});
 client.commands = new Collection();
 client.cmdArray = [];
 
