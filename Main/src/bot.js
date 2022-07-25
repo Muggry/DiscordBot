@@ -11,6 +11,7 @@ const client = new Discord.Client({
     intents: GatewayIntentBits.Guilds
 });
 client.commands = new Collection();
+client.btns = new Collection();
 client.cmdArray = [];
 
 //functions 
@@ -22,6 +23,7 @@ for (const folder of funcFolder) {
 
 client.eventHandler();
 client.cmdHandler();
+client.compHandler();
 
 //login to bot
 const token = process.env.BOT_TOKEN;
