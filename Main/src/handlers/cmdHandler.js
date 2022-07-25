@@ -1,7 +1,7 @@
-const { CommandInteraction } = require('discord.js');
 const fs = require('fs')
 
 module.exports = (client) => {
+    return console.log('hi')
     const cmdFiles = fs.readdirSync('../commands/').filter(file => file.endsWith('.js'));
 
     for (const file of cmdFiles) {
