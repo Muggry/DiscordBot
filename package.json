@@ -1,0 +1,23 @@
+{
+  "name": "mugtilities",
+  "version": "1.0.0",
+  "description": "bruh",
+  "main": "bot.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Muggry/Mugtilities.git"
+  },
+  "author": "Muggry",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Muggry/Mugtilities/issues"
+  },
+  "homepage": "https://github.com/Muggry/Mugtilities#readme",
+  "dependencies": {
+    "discord.js": "^14.0.3",
+    "dotenv": "^16.0.1"
+  }
+}
