@@ -1,3 +1,1 @@
-Please do not work on the main, since that is the deploying branch.
-
-You can add whatever you want, but make sure they are slash commands.
+If you're planning to contribute, please work on the "working" branch, not the main branch. The main branch is for deploying the bot.
