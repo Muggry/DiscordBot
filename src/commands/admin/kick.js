@@ -24,9 +24,6 @@ module.exports = {
     .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers),
   async execute(interaction, client) {
     const reason = interaction.options.getString("reason");
-    if (!reason) {
-      reason = `No reason provided`;
-    }
 
     const member = interaction.guild.members.cache.get(
       interaction.options.getUser("user").id

@@ -10,7 +10,7 @@ function webhookError(error) {
   webhookClient.send({
     embeds: [webEmbed]
   })
-};
+}
 
 module.exports = {
   name: "interactionCreate",
