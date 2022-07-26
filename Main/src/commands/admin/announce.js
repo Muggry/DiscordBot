@@ -3,7 +3,7 @@ const {
   PermissionFlagsBits,
   PermissionsBitField,
   CommandInteractionOptionResolve,
-  EmbedBuilder
+  EmbedBuilder,
 } = require("discord.js");
 
 module.exports = {
@@ -30,28 +30,27 @@ module.exports = {
       .catch(console.error);
 
     if (roles.cache.has("1001329560857612308")) {
-
       const channel = interaction.options.getChannel("channel");
       const toAnnounce = interaction.options.getString("message");
 
       const embed = new EmbedBuilder()
-        .setTitle('New Annoucement!')
+        .setTitle("New Annoucement!")
         .setAuthor({
-            name: `Requested by ${interaction.user.username}`,
+          name: `Requested by ${interaction.user.username}`,
         })
-        .setDescription(`${toAnnounce}`)
+        .setDescription(`${toAnnounce}`);
 
       await interaction.reply({
         content: `Success!`,
         ephemeral: true,
-    });
+      });
 
-      channel.send({embeds: [embed]});
+      channel.send({ embeds: [embed] });
     } else {
-        await interaction.reply({
-            content: `You do not have the ${role} role.`,
-            ephemeral: true,
-        });
+      await interaction.reply({
+        content: `You do not have the adminstrator role.`,
+        ephemeral: true,
+      });
     }
   },
 };
