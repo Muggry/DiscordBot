@@ -21,6 +21,12 @@ module.exports = {
         .setName("channel")
         .setDescription("The channel to announce the message to")
         .setRequired(true)
+    )
+    .addRoleOption((option) =>
+      option
+        .setName("role")
+        .setDescription("The role to ping")
+        .setRequired(false)
     ),
 
   async execute(interaction, client) {
@@ -32,6 +38,11 @@ module.exports = {
     if (roles.cache.has("1001329560857612308")) {
       const channel = interaction.options.getChannel("channel");
       const toAnnounce = interaction.options.getString("message");
+      let roleToPing = interaction.options.getRole("role");
+
+      if (!roleToPing) {
+        roleToPing = '-'
+      }
 
       const embed = new EmbedBuilder()
         .setTitle("New Annoucement!")
@@ -45,7 +56,10 @@ module.exports = {
         ephemeral: true,
       });
 
-      channel.send({ embeds: [embed] });
+      channel.send({ 
+        embeds: [embed],
+        content: `<@${roleToPing.id}>`
+      });
     } else {
       await interaction.reply({
         content: `You do not have the adminstrator role.`,

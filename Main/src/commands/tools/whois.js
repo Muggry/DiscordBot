@@ -1,4 +1,10 @@
-const { SlashCommandBuilder, EmbedBuilder, CommandInteractionOptionResolver, inlineCode, userMention } = require("discord.js");
+const {
+  SlashCommandBuilder,
+  EmbedBuilder,
+  CommandInteractionOptionResolver,
+  inlineCode,
+  userMention,
+} = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -6,7 +12,7 @@ module.exports = {
     .setDescription("Returns info about a user.")
     .addUserOption((option) =>
       option
-        .setName('target')
+        .setName("target")
         .setDescription("Input of the user")
         .setRequired(true)
     ),
@@ -14,23 +20,37 @@ module.exports = {
   async execute(interaction, client) {
     const message = interaction.options.data;
 
-    const userToCheck = interaction.options.getUser('target');
+    const userToCheck = interaction.options.getUser("target");
+    const memToCheck = interaction.guild.members.cache.get(userToCheck.id);
 
     const embed = new EmbedBuilder()
-      .setTitle(`Info about ${userMention(userToCheck.id)}`)
+      .setTitle(`Info about ${memToCheck}`)
+      .setColor(`Random`)
       .setAuthor({
-        name: `${userMention(userToCheck.id)}`,
-        iconURL: `${userToCheck.displayAvatarURL()}`
-
+        name: `${userToCheck.username}`,
+        iconURL: `${userToCheck.displayAvatarURL({dynamic: true})}`,
       })
+      .setThumbnail(userToCheck.displayAvatarURL())
       .setFields(
         {
           name: `Registered At`,
-          value: `${userToCheck.createdAt}`,
+          value: new Date(userToCheck.createdTimestamp).toLocaleDateString(),
           inline: true
         },
+        {
+          name: `Joined At`,
+          value: new Date(memToCheck.joinedTimestamp).toLocaleDateString(),
+          inline: true
+        },
+        {
+          name: `User Name`,
+          value: `${userToCheck.username}`,
+        },
+        {
+          name: `Nickname`,
+          value: memToCheck.nickname || `None`
+        },
       )
-      .setColor(0x18e1ee);
 
     await interaction.reply({
       embeds: [embed],

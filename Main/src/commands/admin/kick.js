@@ -1,52 +1,58 @@
 const {
   SlashCommandBuilder,
-  PermissionFlagsBits,
   PermissionsBitField,
-  CommandInteractionOptionResolve,
-  EmbedBuilder,
+  PermissionFlagsBits,
+  Guild,
 } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("kick")
     .setDescription("Kick a member")
-    .addUserOption((option) =>
-      option
-        .setName("member")
-        .setDescription("The member to kick.")
+    .addUserOption((user) =>
+      user
+        .setName("user")
+        .setDescription("The user that will be kicked.")
         .setRequired(true)
     )
-    .addStringOption((option) =>
-      option
+    .addStringOption((reason) =>
+      reason
         .setName("reason")
-        .setDescription("The reason of the kick")
+        .setDescription("The reason for the kick.")
         .setRequired(false)
-    ),
-
+    )
+    .setDefaultMemberPermissions(PermissionFlagsBits.KickMembers),
   async execute(interaction, client) {
-    const { roles } = interaction.member;
-    const guild = interaction.guild;
-    const role = await guild
-      .fetch("1001329560857612308")
-      .catch(console.error);
+    const reason = interaction.options.getString("reason");
+    if (!reason) {
+      reason = `No reason provided`;
+    }
 
-    const toKick = interaction.options.getUser("member");
-    let toKickMem = guild.members.fetch(toKick.id).catch(console.error);
-    console.log(toKickMem);
+    const member = interaction.guild.members.cache.get(
+      interaction.options.getUser("user").id
+    );
 
-    const reaction = interaction.options.getString("reason");
 
-    if (!roles.cache.has("1001329560857612308")) {
+    if (member.permissions.has(PermissionsBitField.Flags.KickMembers)) {
       await interaction.reply({
-        content: "You cannot use this command.",
+        content: `You cant kick a member who has kick perms.`,
+        ephemeral: true,
       });
-
       return;
-    } /*else if (toKick.hasPermissions(`KICK_MEMBERS`)) {
-        await interaction.reply({
-          content: `You cannot kick this member!`
-         })*/
-
-    toKickMem.kick();
+    }
+    // kick the user from the guild
+    try {
+      await member.kick(reason);
+      interaction.reply({
+        content: `Kicked ${member.user.username}#${member.user.discriminator}`,
+        ephemeral: true,
+      });
+    } catch (error) {
+      console.log(error);
+      interaction.reply({
+        content: `Something went wrong while kicking ${member.user.username}#${member.user.discriminator}`,
+        ephemeral: true,
+      });
+    }
   },
 };
