@@ -1,4 +1,16 @@
 const fs = require("fs");
+const { EmbedBuilder, WebhookClient } = require(`discord.js`);
+const webhookClient = new WebhookClient({ url: 'https://discord.com/api/webhooks/1001568214528032798/LNjR1MVwCffgrwNliPoqnnbtKcYGSHOlesq-p5cgrjKidBYPYP5wqJTTJ040mCjk_YW7' });
+
+function webhookError(error) {
+  const webEmbed = new EmbedBuilder()
+    .setTitle(`New Error!`)
+    .setDescription(error)
+    .setColor(`Random`)
+  webhookClient.send({
+    embeds: [webEmbed]
+  })
+};
 
 module.exports = {
   name: "interactionCreate",
@@ -12,6 +24,7 @@ module.exports = {
       try {
         await command.execute(interaction, client);
       } catch (error) {
+        webhookError(error);
         console.error(error);
         await interaction.reply({
           content:
@@ -32,6 +45,7 @@ module.exports = {
       try {
         await button.execute(interaction, client);
       } catch (err) {
+        webhookError(err);
         console.error(err);
       }
     }
