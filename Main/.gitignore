@@ -1,4 +1,4 @@
 .env
 
 # dependencies
-./Main/node_modules/
+/node_modules/
