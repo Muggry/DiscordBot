@@ -5,8 +5,6 @@ const {
   Guild,
 } = require("discord.js");
 
-const ms = require(`ms`)
-
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("purge")
@@ -19,7 +17,7 @@ module.exports = {
     )
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
   async execute(interaction, client) {
-    
+
     if (!roles.cache.has("1001329560857612308" ) || member.permissions.has(PermissionsBitField.Flags.ManageMessages) ) {
       await interaction.reply({
         content: `You do not have the adminstrator role.`,
@@ -44,10 +42,10 @@ module.exports = {
         limit: amount + 1,
       })
 
-      const filtered = messages.filter((message) => Date.now() - message.createdTimestamp < ms('14 days'))
 
 
-      await interaction.channel.bulkDelete(filtered);
+
+      await interaction.channel.bulkDelete(filtered, true);
 
   },
 };
