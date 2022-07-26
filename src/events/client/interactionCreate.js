@@ -45,7 +45,7 @@ module.exports = {
       try {
         await button.execute(interaction, client);
       } catch (err) {
-        webhookError(err);
+          webhookError(err);
         console.error(err);
       }
     }
