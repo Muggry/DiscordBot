@@ -9,7 +9,7 @@ module.exports = {
   data: new SlashCommandBuilder()
     .setName("purge")
     .setDescription("Kick a member")
-    .addIntegerOption((option) =>
+    .addNumberOption((option) =>
       option
         .setName("number")
         .setDescription("Number of messages that will be purged")
@@ -18,13 +18,6 @@ module.exports = {
     .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
   async execute(interaction, client) {
 
-    if (!roles.cache.has("1001329560857612308" ) || member.permissions.has(PermissionsBitField.Flags.ManageMessages) ) {
-      await interaction.reply({
-        content: `You do not have the adminstrator role.`,
-        ephemeral: true,
-      });
-      return
-    }
 
     const member = interaction.guild.members.cache.get(
       interaction.user.id
@@ -34,6 +27,16 @@ module.exports = {
     const role = await interaction.guild
       .fetch("1001329560857612308")
       .catch(console.error);
+      console.log(roles.cache.has("1001329560857612308" ))
+      console.log(member.permissions.has(PermissionsBitField.Flags.ManageMessages) )
+
+      if (!member.permissions.has(PermissionsBitField.Flags.ManageMessages) ) {
+        await interaction.reply({
+          content: `You do not perms to use this.`,
+          ephemeral: true,
+        });
+        return
+      }
 
       const amount = interaction.options.getInteger('Number')
       if (amount >100) return interaction.followUp({content: `The number has to be 100 or lower.`})
@@ -45,7 +48,7 @@ module.exports = {
 
 
 
-      await interaction.channel.bulkDelete(filtered, true);
+      await interaction.channel.bulkDelete(amount, true);
 
   },
 };
