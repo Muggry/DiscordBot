@@ -15,12 +15,11 @@ module.exports = {
     const message = interaction.options.data;
 
     const userToCheck = interaction.options.getUser('target');
-    console.log(member);
 
     const embed = new EmbedBuilder()
-      .setTitle(`Info about ${userToCheck}`)
+      .setTitle(`Info about ${userMention(userToCheck.id)}`)
       .setAuthor({
-        name: `${userMention(userToCheck)}`,
+        name: `${userMention(userToCheck.id)}`,
         iconURL: `${userToCheck.displayAvatarURL()}`
 
       })

@@ -7,7 +7,12 @@ module.exports = {
   async execute(interaction, client) {
     const embed = new EmbedBuilder()
       .setTitle("Returned Client Ping")
-      .setDescription(`Api Latency: ${client.ws.ping}`)
+      .setFields(
+        {
+          name: `Api Latency:`,
+          value: `${client.ws.ping}`
+        }
+      )
       .setColor(0x18e1ee);
 
     await interaction.reply({
