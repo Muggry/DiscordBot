@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, EmbedBuilder, CommandInteractionOptionResolver, inlineCode } = require("discord.js");
+const { SlashCommandBuilder, EmbedBuilder, CommandInteractionOptionResolver, inlineCode, userMention } = require("discord.js");
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -12,12 +12,15 @@ module.exports = {
     ),
 
   async execute(interaction, client) {
-    const userToCheck = interaction.options.getUser('target')
+    const message = interaction.options.data;
+
+    const userToCheck = interaction.options.getUser('target');
+    console.log(member);
 
     const embed = new EmbedBuilder()
       .setTitle(`Info about ${userToCheck}`)
       .setAuthor({
-        name: `${userToCheck}`,
+        name: `${userMention(userToCheck)}`,
         iconURL: `${userToCheck.displayAvatarURL()}`
 
       })
@@ -26,7 +29,7 @@ module.exports = {
           name: `Registered At`,
           value: `${userToCheck.createdAt}`,
           inline: true
-        }
+        },
       )
       .setColor(0x18e1ee);
 
