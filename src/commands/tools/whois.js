@@ -24,10 +24,10 @@ module.exports = {
     const memToCheck = interaction.guild.members.cache.get(userToCheck.id);
 
     const embed = new EmbedBuilder()
-      .setTitle(`Info about ${memToCheck}`)
+      .setTitle(`Info about ${userToCheck.username}`)
       .setColor(`Random`)
       .setAuthor({
-        name: `${userToCheck.username}`,
+        name: `${memToCheck}`,
         iconURL: `${userToCheck.displayAvatarURL({dynamic: true})}`,
       })
       .setThumbnail(userToCheck.displayAvatarURL())
