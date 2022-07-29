@@ -5,13 +5,14 @@ const webhookClient = new WebhookClient({
 });
 
 function webhookError(error) {
-  const webEmbed = new EmbedBuilder()
+  /*const webEmbed = new EmbedBuilder()
     .setTitle(`New Error!`)
     .setDescription(error.rawError.message)
     .setColor(`Random`);
   webhookClient.send({
     embeds: [webEmbed],
-  });
+  });*/
+  console.log(`no`)
 }
 
 module.exports = {

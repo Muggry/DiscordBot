@@ -26,6 +26,7 @@ for (const folder of funcFolder) {
 client.eventHandler();
 client.cmdHandler();
 client.compHandler();
+client.dbHandler();
 
 //login to bot
 const token = process.env.BOT_TOKEN;

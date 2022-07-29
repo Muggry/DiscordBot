@@ -27,22 +27,20 @@ module.exports = {
         .setName("role")
         .setDescription("The role to ping")
         .setRequired(false)
-    ),
-
+    )
+    .setDefaultMemberPermissions(PermissionFlagsBits.ManageMessages),
   async execute(interaction, client) {
-    const { roles } = interaction.member;
-    const role = await interaction.guild
-      .fetch("1001329560857612308")
-      .catch(console.error);
+    const member = interaction.guild.members.cache.get(interaction.user.id);
 
-    if (roles.cache.has("1001329560857612308")) {
+    if (member.permissions.has(PermissionsBitField.Flags.ManageMessages)) {
       const channel = interaction.options.getChannel("channel");
       const toAnnounce = interaction.options.getString("message");
       let roleToPing = interaction.options.getRole("role");
 
       if (!roleToPing) {
-        roleToPing = '-'
+        roleToPing = "-"
       }
+
 
       const embed = new EmbedBuilder()
         .setTitle("New Annoucement!")
@@ -51,18 +49,14 @@ module.exports = {
         })
         .setDescription(`${toAnnounce}`);
 
-      await interaction.reply({
-        content: `Success!`,
-        ephemeral: true,
-      });
 
       channel.send({ 
         embeds: [embed],
-        content: `<@${roleToPing.id}>`
+        content: `${roleToPing}>` || `no role to ping`,
       });
     } else {
       await interaction.reply({
-        content: `You do not have the adminstrator role.`,
+        content: `You do not have perms.`,
         ephemeral: true,
       });
     }

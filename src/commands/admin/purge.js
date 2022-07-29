@@ -19,10 +19,6 @@ module.exports = {
   async execute(interaction, client) {
     const member = interaction.guild.members.cache.get(interaction.user.id);
 
-    const { roles } = interaction.member;
-    const role = await interaction.guild
-      .fetch("1001329560857612308")
-      .catch(console.error);
 
     if (!member.permissions.has(PermissionsBitField.Flags.ManageMessages)) {
       await interaction.reply({

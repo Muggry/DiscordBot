@@ -25,29 +25,36 @@ module.exports = {
   async execute(interaction, client) {
     const reason = interaction.options.getString("reason");
 
-    const member = interaction.guild.members.cache.get(
+    const memberToKick = interaction.guild.members.cache.get(
       interaction.options.getUser("user").id
     );
+    const member = interaction.guild.members.cache.get(interaction.user.id);
 
 
-    if (member.permissions.has(PermissionsBitField.Flags.KickMembers)) {
+    if (memberToKick.permissions.has(PermissionsBitField.Flags.KickMembers)) {
       await interaction.reply({
         content: `You cant kick a member who has kick perms.`,
+        ephemeral: true,
+      });
+      return;
+    } else if (!member.permissions.has(PermissionsBitField.Flags.KickMembers)) {
+      await interaction.reply({
+        content: `You do not have permissions.`,
         ephemeral: true,
       });
       return;
     }
     // kick the user from the guild
     try {
-      await member.kick(reason);
+      await memberToKick.kick(reason);
       interaction.reply({
-        content: `Kicked ${member.user.username}#${member.user.discriminator}`,
+        content: `Kicked ${memberToKick.user.username}#${memberToKick.user.discriminator}`,
         ephemeral: true,
       });
     } catch (error) {
       console.log(error);
       interaction.reply({
-        content: `Something went wrong while kicking ${member.user.username}#${member.user.discriminator}`,
+        content: `Something went wrong while kicking ${memberToKick.user.username}#${memberToKick.user.discriminator}`,
         ephemeral: true,
       });
     }
