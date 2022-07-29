@@ -28,7 +28,7 @@ module.exports = {
       interaction.options.getChannel("memberaddedchannel");
 
     
-    const found = await Guild.findOne({ id: interaction.guild.id });
+    const found = await Guild.findOne({ guildId: interaction.guild.id });
     console.log(found)
 
     if (!logChannelOpt) {
@@ -48,8 +48,8 @@ module.exports = {
         { guildId: interaction.guild.id },
         {
           $set: {
-            welcomeLeaveChannelId: welcomeLeaveChannel.id || "not entered",
-            logChannelId: logChannelOpt.id || "not entered",
+            welcomeLeaveChannelId: welcomeLeaveChannel || "not entered",
+            logChannelId: logChannelOpt || "not entered",
           },
         },
         { new: true }
@@ -60,8 +60,8 @@ module.exports = {
     } else {
       const newGuild = await Guild.create({
         guildId: interaction.guild.id,
-        welcomeLeaveChannelId: welcomeLeaveChannel.id || "not entered",
-        logChannelId: logChannelOpt.id || "not entered",
+        welcomeLeaveChannelId: welcomeLeaveChannel || "not entered",
+        logChannelId: logChannelOpt || "not entered",
       });
 
       await interaction.reply({

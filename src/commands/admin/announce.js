@@ -6,6 +6,8 @@ const {
   EmbedBuilder,
 } = require("discord.js");
 
+const functions = require(`../../mongo/functions`)
+
 module.exports = {
   data: new SlashCommandBuilder()
     .setName("announce")
@@ -60,5 +62,11 @@ module.exports = {
         ephemeral: true,
       });
     }
+
+    functions.SendLog({
+      guild: interaction.guild,
+      description: `test`
+    })
+
   },
 };

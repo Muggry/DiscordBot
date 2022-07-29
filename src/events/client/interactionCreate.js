@@ -28,7 +28,7 @@ module.exports = {
         await command.execute(interaction, client);
       } catch (error) {
         webhookError(error);
-        console.error(error, client);
+        console.error(error);
         await interaction.reply({
           content:
             "Elf bot had some problems executing this command, please try again.",
