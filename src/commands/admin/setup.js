@@ -48,8 +48,8 @@ module.exports = {
         { guildId: interaction.guild.id },
         {
           $set: {
-            welcomeLeaveChannelId: welcomeLeaveChannel || "not entered",
-            logChannelId: logChannelOpt || "not entered",
+            welcomeLeaveChannelId: welcomeLeaveChannel.id || "not entered",
+            logChannelId: logChannelOpt.id || "not entered",
           },
         },
         { new: true }
@@ -60,8 +60,8 @@ module.exports = {
     } else {
       const newGuild = await Guild.create({
         guildId: interaction.guild.id,
-        welcomeLeaveChannelId: welcomeLeaveChannel || "not entered",
-        logChannelId: logChannelOpt || "not entered",
+        welcomeLeaveChannelId: welcomeLeaveChannel.id || "not entered",
+        logChannelId: logChannelOpt.id || "not entered",
       });
 
       await interaction.reply({

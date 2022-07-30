@@ -3,7 +3,7 @@ const { EmbedBuilder } = require('discord.js')
 
 
 function sendLog(args) {
-    const guildData = Guild.findOne({guildId: args.guild.id});
+    const guildData = Guild.findOne({guildId: args.guild.id}).where("logChannelId")
     //const channelToLog = args.guild.channels.cache.get(channelToLogID);
 
     console.log(guildData)
