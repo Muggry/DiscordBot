@@ -5,7 +5,6 @@ const {
   Guild,
 } = require("discord.js");
 
-const { SendLog } = require(`../../mongo/functions`)
 
 module.exports = {
   data: new SlashCommandBuilder()
@@ -42,9 +41,8 @@ module.exports = {
 
     await interaction.channel.bulkDelete(amount, true);
 
-    SendLog({
-      guild: interaction.guild,
-      description: `${interaction.user.username} has purged ${amount} messages.`
+    await interaction.reply({
+      content: `Successfully deleted ${amount} messages`
     })
   },
 };

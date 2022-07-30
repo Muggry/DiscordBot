@@ -14,20 +14,20 @@ module.exports = {
       option
         .setName("target")
         .setDescription("Input of the user")
-        .setRequired(true)
+        .setRequired(false)
     ),
 
   async execute(interaction, client) {
     const message = interaction.options.data;
 
-    const userToCheck = interaction.options.getUser("target");
-    const memToCheck = interaction.guild.members.cache.get(userToCheck.id);
+    const userToCheck = interaction.options.getUser("target") || interaction.user
+    const memToCheck = interaction.guild.members.cache.get(userToCheck.id) 
 
     const embed = new EmbedBuilder()
       .setTitle(`Info about ${userToCheck.username}`)
       .setColor(`Random`)
       .setAuthor({
-        name: `${memToCheck}`,
+        name: `${userToCheck}`,
         iconURL: `${userToCheck.displayAvatarURL({dynamic: true})}`,
       })
       .setThumbnail(userToCheck.displayAvatarURL())

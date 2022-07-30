@@ -5,7 +5,7 @@ const {
   CommandInteractionOptionResolver,
 } = require("discord.js");
 
-const Guild = require(`../../mongo/guild`);
+const Guild = require(`./mongo/guild`);
 
 module.exports = {
   data: new SlashCommandBuilder()
